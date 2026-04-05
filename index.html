@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сакура — Облачные записки</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --petal-1: #fce4ec;
+      --petal-2: #f8bbd0;
+      --petal-3: #f48fb1;
+      --petal-4: #e91e8c;
+      --blush: #fdf0f5;
+      --white: #fffcfe;
+      --bark: #5d3a3a;
+      --bark-light: #8b5e5e;
+      --text: #3d2020;
+      --text-soft: #a07070;
+      --shadow: rgba(180, 80, 100, 0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      background: var(--blush);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── Falling petals ── */
+    .petals-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -60px;
+      width: 18px;
+      height: 18px;
+      background: var(--petal-2);
+      border-radius: 150% 0 150% 0;
+      opacity: 0.7;
+      animation: fall linear infinite;
+    }
+
+    .petal:nth-child(odd) {
+      background: var(--petal-1);
+      border-radius: 0 150% 0 150%;
+      width: 14px; height: 14px;
+    }
+
+    .petal:nth-child(3n) {
+      background: var(--petal-3);
+      opacity: 0.4;
+      width: 10px; height: 10px;
+    }
+
+    @keyframes fall {
+      0%   { transform: translateY(-60px) rotate(0deg) translateX(0); opacity: 0.8; }
+      25%  { transform: translateY(25vh) rotate(90deg) translateX(40px); }
+      50%  { transform: translateY(50vh) rotate(180deg) translateX(-20px); }
+      75%  { transform: translateY(75vh) rotate(270deg) translateX(30px); }
+      100% { transform: translateY(110vh) rotate(360deg) translateX(-10px); opacity: 0; }
+    }
+
+    /* ── Background sakura branch SVG ── */
+    .bg-branch {
+      position: fixed;
+      top: -40px;
+      right: -60px;
+      width: 480px;
+      opacity: 0.09;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-branch-left {
+      position: fixed;
+      bottom: -60px;
+      left: -80px;
+      width: 380px;
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+      transform: rotate(180deg) scaleX(-1);
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .logo-kanji {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      color: var(--petal-3);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 6vw, 3rem);
+      color: var(--bark);
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--petal-3);
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-soft);
+      letter-spacing: 0.08em;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--petal-3), transparent);
+      margin: 18px auto 0;
+    }
+
+    /* ── Auth block ── */
+    .auth-section {
+      background: var(--white);
+      border: 1px solid var(--petal-2);
+      border-radius: 20px;
+      padding: 22px 28px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 24px var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .login-prompt {
+      font-size: 14px;
+      color: var(--text-soft);
+      font-style: italic;
+    }
+
+    .btn-google {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--petal-3), var(--petal-4));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 11px 24px;
+      font-size: 14px;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 14px rgba(233, 30, 140, 0.3);
+      letter-spacing: 0.03em;
+    }
+
+    .btn-google:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(233, 30, 140, 0.4);
+    }
+
+    .btn-google svg { width: 18px; height: 18px; }
+
+    .auth-bar {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .user-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--petal-2);
+      object-fit: cover;
+    }
+
+    .user-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--bark);
+      flex: 1;
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1px solid var(--petal-2);
+      color: var(--text-soft);
+      border-radius: 50px;
+      padding: 7px 16px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.25s;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+    }
+
+    .btn-logout:hover {
+      border-color: var(--petal-3);
+      color: var(--petal-3);
+    }
+
+    /* ── Message form ── */
+    .message-form {
+      background: var(--white);
+      border: 1px solid var(--petal-2);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 24px var(--shadow);
+      display: none;
+      animation: fadeUp 0.4s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--bark);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-title::before {
+      content: '🌸';
+      font-size: 1rem;
+    }
+
+    .field-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 11px 16px;
+      border: 1px solid var(--petal-2);
+      border-radius: 12px;
+      background: var(--blush);
+      color: var(--text);
+      font-size: 14px;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--petal-3);
+      background: var(--white);
+    }
+
+    input[readonly] {
+      color: var(--text-soft);
+      cursor: default;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+      margin-bottom: 12px;
+    }
+
+    .btn-post {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--petal-2), var(--petal-3));
+      border: none;
+      border-radius: 12px;
+      color: var(--bark);
+      font-size: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 3px 12px var(--shadow);
+    }
+
+    .btn-post:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(180, 80, 120, 0.2);
+    }
+
+    /* ── Feed ── */
+    .feed-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-soft);
+      text-align: center;
+      margin-bottom: 20px;
+      letter-spacing: 0.08em;
+    }
+
+    #feed { display: flex; flex-direction: column; gap: 16px; }
+
+    .post {
+      background: var(--white);
+      border: 1px solid var(--petal-1);
+      border-radius: 18px;
+      padding: 20px 22px;
+      box-shadow: 0 2px 16px var(--shadow);
+      animation: fadeUp 0.3s ease;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .post:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(180, 80, 120, 0.15);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .post-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--petal-2);
+      object-fit: cover;
+    }
+
+    .post-meta { flex: 1; }
+
+    .post-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--bark);
+    }
+
+    .post-time {
+      font-size: 11px;
+      color: var(--text-soft);
+      letter-spacing: 0.05em;
+    }
+
+    .post-text {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    .post-footer {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .btn-like {
+      background: none;
+      border: 1px solid var(--petal-2);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: 13px;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-like:hover {
+      background: var(--petal-1);
+      border-color: var(--petal-3);
+      color: var(--petal-4);
+    }
+
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-soft);
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 12px;
+      color: var(--petal-2);
+      letter-spacing: 0.15em;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Falling petals -->
+<div class="petals-container" id="petalsContainer"></div>
+
+<!-- Background branches (SVG) -->
+<svg class="bg-branch" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M380 10 Q320 80 260 140 Q200 200 180 300 Q160 400 170 490" stroke="#e91e8c" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M260 140 Q220 100 180 80 Q140 60 100 50" stroke="#e91e8c" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M260 140 Q280 110 310 90" stroke="#e91e8c" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M200 220 Q160 200 120 195 Q90 192 60 200" stroke="#e91e8c" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M190 290 Q230 270 260 250" stroke="#e91e8c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- blossoms -->
+  <circle cx="100" cy="50" r="8" fill="#f48fb1"/><circle cx="115" cy="42" r="6" fill="#fce4ec"/><circle cx="88" cy="42" r="6" fill="#f8bbd0"/>
+  <circle cx="60" cy="200" r="7" fill="#f48fb1"/><circle cx="74" cy="193" r="5" fill="#fce4ec"/><circle cx="50" cy="193" r="5" fill="#f8bbd0"/>
+  <circle cx="310" cy="90" r="7" fill="#f48fb1"/><circle cx="322" cy="83" r="5" fill="#fce4ec"/><circle cx="300" cy="83" r="5" fill="#f8bbd0"/>
+  <circle cx="260" cy="250" r="6" fill="#f48fb1"/><circle cx="270" cy="244" r="4" fill="#fce4ec"/>
+  <circle cx="170" cy="490" r="8" fill="#f48fb1"/><circle cx="160" cy="480" r="6" fill="#fce4ec"/>
+</svg>
+
+<svg class="bg-branch-left" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M380 10 Q320 80 260 140 Q200 200 180 300 Q160 400 170 490" stroke="#e91e8c" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M260 140 Q220 100 180 80 Q140 60 100 50" stroke="#e91e8c" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M200 220 Q160 200 120 195 Q90 192 60 200" stroke="#e91e8c" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="100" cy="50" r="8" fill="#f48fb1"/><circle cx="115" cy="42" r="6" fill="#fce4ec"/>
+  <circle cx="60" cy="200" r="7" fill="#f48fb1"/><circle cx="74" cy="193" r="5" fill="#fce4ec"/>
+</svg>
+
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <div class="logo-kanji">桜 · Sakura Notes</div>
+    <h1>Весенние <em>записки</em></h1>
+    <p class="subtitle">Поделитесь мыслью — пусть она летит, как лепесток</p>
+    <div class="divider"></div>
+  </header>
+
+  <!-- Auth -->
+  <div class="auth-section" id="authSection">
+    <span class="login-prompt" id="loginPrompt">Войдите, чтобы оставить запись</span>
+    <button class="btn-google" id="loginBtn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+      </svg>
+      Войти через Google
+    </button>
+    <div class="auth-bar" id="userInfo">
+      <img class="user-avatar" id="userPhoto" src="" alt="Avatar">
+      <span class="user-name" id="userName"></span>
+      <button class="btn-logout" id="logoutBtn">Выйти</button>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="message-form" id="messageForm">
+    <div class="form-title">Новая запись</div>
+    <div class="field-group">
+      <input type="text" id="name" placeholder="Имя" readonly>
+      <input type="email" id="email" placeholder="Email" readonly>
+    </div>
+    <textarea id="content" placeholder="О чём думаете этой весной?"></textarea>
+    <button class="btn-post" id="mainBtn">✦ Опубликовать в облако</button>
+  </div>
+
+  <!-- Feed -->
+  <p class="feed-title">— лепестки мыслей —</p>
+  <div id="feed">
+    <!-- placeholder cards for design preview -->
+    <div class="post">
+      <div class="post-header">
+        <img class="post-avatar" src="https://via.placeholder.com/36/f8bbd0/c2185b?text=А" alt="">
+        <div class="post-meta">
+          <div class="post-name">Айгерим</div>
+          <div class="post-time">только что</div>
+        </div>
+      </div>
+      <p class="post-text">Сакура расцвела прямо у окна. Кажется, весна пришла специально сегодня ✿</p>
+      <div class="post-footer">
+        <button class="btn-like">🌸 5</button>
+      </div>
+    </div>
+    <div class="post">
+      <div class="post-header">
+        <img class="post-avatar" src="https://via.placeholder.com/36/fce4ec/e91e8c?text=Д" alt="">
+        <div class="post-meta">
+          <div class="post-name">Дамир</div>
+          <div class="post-time">2 мин назад</div>
+        </div>
+      </div>
+      <p class="post-text">Первый раз попробовал чай с лепестками сакуры. Это что-то невероятное.</p>
+      <div class="post-footer">
+        <button class="btn-like">🌸 12</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>桜 · весна всегда возвращается · 桜</footer>
+</div>
+
+<script type="module">
+  // ── Генерация лепестков ──
+  const container = document.getElementById('petalsContainer');
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 15) + 's';
+    container.appendChild(p);
+  }
+
+  // ════════════════════════════════════════════════
+  //  FIREBASE — вставьте свою конфигурацию ниже
+  // ════════════════════════════════════════════════
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, updateDoc, doc, increment }
+    from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+  const firebaseConfig = {
+
+    apiKey: "AIzaSyBn3E0b-hAlhly68hVemfta8DMmzX6zAtw",
+
+    authDomain: "sakura-notes.firebaseapp.com",
+
+    projectId: "sakura-notes",
+
+    storageBucket: "sakura-notes.firebasestorage.app",
+
+    messagingSenderId: "267000760878",
+
+    appId: "1:267000760878:web:49643bd1c35a92c0ab2dbf",
+
+    measurementId: "G-LRZ9NEML81"
+
+  };
+
+
+  const app  = initializeApp(firebaseConfig);
+  const db   = getFirestore(app);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  // ── DOM ──
+  const loginBtn    = document.getElementById('loginBtn');
+  const logoutBtn   = document.getElementById('logoutBtn');
+  const userInfo    = document.getElementById('userInfo');
+  const loginPrompt = document.getElementById('loginPrompt');
+  const messageForm = document.getElementById('messageForm');
+
+  loginBtn.onclick  = () => signInWithPopup(auth, provider);
+  logoutBtn.onclick = () => signOut(auth);
+
+  // ── Auth state ──
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loginBtn.style.display        = 'none';
+      loginPrompt.style.display     = 'none';
+      userInfo.style.display        = 'flex';
+      messageForm.style.display     = 'block';
+
+      document.getElementById('userName').innerText    = user.displayName;
+      document.getElementById('userPhoto').src         = user.photoURL;
+      document.getElementById('name').value            = user.displayName;
+      document.getElementById('email').value           = user.email;
+    } else {
+      loginBtn.style.display        = 'flex';
+      loginPrompt.style.display     = 'block';
+      userInfo.style.display        = 'none';
+      messageForm.style.display     = 'none';
+    }
+  });
+
+  // ── Лайки ──
+  window.processLike = async (id) => {
+    await updateDoc(doc(db, "requests", id), { likes: increment(1) });
+  };
+
+  // ── Отправка ──
+  document.getElementById('mainBtn').onclick = async () => {
+    const content = document.getElementById('content').value.trim();
+    if (!content) return alert("Напишите что-нибудь 🌸");
+    try {
+      await addDoc(collection(db, "requests"), {
+        name:      auth.currentUser.displayName,
+        email:     auth.currentUser.email,
+        photo:     auth.currentUser.photoURL,
+        text:      content,
+        likes:     0,
+        timestamp: serverTimestamp()
+      });
+      document.getElementById('content').value = "";
+    } catch (e) {
+      alert("Ошибка безопасности! Проверьте Rules в Firebase.");
+    }
+  };
+
+  // ── Real-time лента ──
+  const q = query(collection(db, "requests"), orderBy("timestamp", "desc"));
+  onSnapshot(q, (snapshot) => {
+    const feed = document.getElementById('feed');
+    feed.innerHTML = "";
+
+    if (snapshot.empty) {
+      feed.innerHTML = '<div class="empty-state">Пока тихо… Будьте первым лепестком 🌸</div>';
+      return;
+    }
+
+    snapshot.forEach((d) => {
+      const data = d.data();
+      feed.innerHTML += `
+        <div class="post">
+          <div class="post-header">
+            <img class="post-avatar" src="${data.photo || 'https://via.placeholder.com/36/fce4ec/c2185b?text=?'}" alt="">
+            <div class="post-meta">
+              <div class="post-name">${data.name}</div>
+              <div class="post-time">${data.timestamp?.toDate().toLocaleTimeString('ru') || '...'}</div>
+            </div>
+          </div>
+          <p class="post-text">${data.text}</p>
+          <div class="post-footer">
+            <button class="btn-like" onclick="processLike('${d.id}')">🌸 ${data.likes || 0}</button>
+          </div>
+        </div>`;
+    });
+  });
+
+  window.db = db; // для тестов в консоли F12
+</script>
+</body>
+</html>
