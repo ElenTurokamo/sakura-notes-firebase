@@ -366,6 +366,13 @@ document.getElementById('mainBtn').onclick = async () => {
   }
 };
 
+// ── Peer registry — безопасное хранилище вместо inline JSON ──
+const peerMap = new Map(); // uid → { uid, name, photo }
+window.openDMbyUid = (uid) => {
+  const peer = peerMap.get(uid);
+  if (peer) window.openDM(peer);
+};
+
 // ── Real-time feed ────────────────────────────────────
 const q = query(collection(db, "requests"), orderBy("timestamp", "desc"));
 onSnapshot(q, (snapshot) => {
@@ -376,24 +383,27 @@ onSnapshot(q, (snapshot) => {
     return;
   }
   snapshot.forEach((d) => {
-    const data  = d.data();
+    const data   = d.data();
     const isSelf = auth.currentUser && auth.currentUser.uid === data.uid;
-    // Serialize peer safely
-    const peer = JSON.stringify({
-      uid:   data.uid   || "",
-      name:  data.name  || "Неизвестный",
-      photo: data.photo || "",
-    }).replace(/'/g, "&#39;");
+
+    // Сохраняем peer в Map — никакого JSON в HTML-атрибутах
+    if (data.uid && !isSelf) {
+      peerMap.set(data.uid, {
+        uid:   data.uid,
+        name:  data.name  || "Неизвестный",
+        photo: data.photo || "",
+      });
+    }
 
     const dmBtn = !isSelf && data.uid
-      ? `<button class="btn-dm-inline" onclick="openDM('${peer}')">✉ Написать</button>`
+      ? `<button class="btn-dm-inline" onclick="openDMbyUid('${data.uid}')">✉ Написать</button>`
       : '';
 
     feed.innerHTML += `
       <div class="post">
         <div class="post-header">
           ${data.uid && !isSelf
-            ? `<button class="post-author-btn" onclick="openDM('${peer}')">
+            ? `<button class="post-author-btn" onclick="openDMbyUid('${data.uid}')">
                  <img class="post-avatar" src="${data.photo || ''}" alt="">
                  <div class="post-meta">
                    <div class="post-name">${data.name || 'Гость'}</div>
@@ -439,9 +449,8 @@ function convId(uidA, uidB) {
   return [uidA, uidB].sort().join('__');
 }
 
-// openDM accepts a JSON string (called from inline onclick)
-window.openDM = (peerJson) => {
-  const peer = typeof peerJson === 'string' ? JSON.parse(peerJson) : peerJson;
+// openDM принимает объект напрямую (вызывается через openDMbyUid)
+window.openDM = (peer) => {
   if (auth.currentUser && auth.currentUser.uid === peer.uid) return;
 
   currentPeer = peer;
