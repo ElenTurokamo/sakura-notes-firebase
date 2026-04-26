@@ -32,7 +32,6 @@
       position: relative;
     }
 
-    /* ── Falling petals ── */
     .petals-container {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
@@ -55,14 +54,11 @@
       100% { transform: translateY(110vh) rotate(360deg) translateX(-10px); opacity: 0; }
     }
 
-    /* ── BG branches ── */
     .bg-branch      { position: fixed; top: -40px; right: -60px; width: 480px; opacity: 0.09; pointer-events: none; z-index: 0; }
     .bg-branch-left { position: fixed; bottom: -60px; left: -80px; width: 380px; opacity: 0.07; pointer-events: none; z-index: 0; transform: rotate(180deg) scaleX(-1); }
 
-    /* ── Layout ── */
     .page { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; padding: 48px 20px 80px; }
 
-    /* ── Header ── */
     header { text-align: center; margin-bottom: 40px; }
     .logo-kanji { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.3em; color: var(--petal-3); text-transform: uppercase; margin-bottom: 8px; }
     h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem, 6vw, 3rem); color: var(--bark); line-height: 1.1; letter-spacing: 0.02em; }
@@ -70,7 +66,6 @@
     .subtitle { margin-top: 10px; font-size: 13px; color: var(--text-soft); letter-spacing: 0.08em; }
     .divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--petal-3), transparent); margin: 18px auto 0; }
 
-    /* ── Auth ── */
     .auth-section {
       background: var(--white); border: 1px solid var(--petal-2); border-radius: 20px;
       padding: 22px 28px; margin-bottom: 28px; box-shadow: 0 4px 24px var(--shadow);
@@ -93,7 +88,6 @@
     .btn-logout { background: transparent; border: 1px solid var(--petal-2); color: var(--text-soft); border-radius: 50px; padding: 7px 16px; font-size: 12px; cursor: pointer; transition: all 0.25s; font-family: 'Zen Kaku Gothic New', sans-serif; }
     .btn-logout:hover { border-color: var(--petal-3); color: var(--petal-3); }
 
-    /* ── Post form ── */
     .message-form { background: var(--white); border: 1px solid var(--petal-2); border-radius: 20px; padding: 28px; margin-bottom: 32px; box-shadow: 0 4px 24px var(--shadow); display: none; animation: fadeUp 0.4s ease; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
     .form-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--bark); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
@@ -106,74 +100,22 @@
     .btn-post { width: 100%; padding: 13px; background: linear-gradient(135deg, var(--petal-2), var(--petal-3)); border: none; border-radius: 12px; color: var(--bark); font-size: 14px; font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: 0.08em; cursor: pointer; transition: all 0.3s; box-shadow: 0 3px 12px var(--shadow); }
     .btn-post:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(180,80,120,0.2); }
 
-    /* ── Feed ── */
     .feed-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; font-style: italic; color: var(--text-soft); text-align: center; margin-bottom: 20px; letter-spacing: 0.08em; }
     #feed { display: flex; flex-direction: column; gap: 16px; }
     .post { background: var(--white); border: 1px solid var(--petal-1); border-radius: 18px; padding: 20px 22px; box-shadow: 0 2px 16px var(--shadow); animation: fadeUp 0.3s ease; transition: transform 0.2s, box-shadow 0.2s; }
     .post:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(180,80,120,0.15); }
     .post-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-
-    /* clickable author → DM */
-    .post-author-btn { display: flex; align-items: center; gap: 10px; background: none; border: none; cursor: pointer; padding: 4px 8px; margin: -4px -8px; border-radius: 30px; transition: background 0.2s; text-align: left; flex: 1; }
-    .post-author-btn:hover { background: var(--petal-1); }
-    .post-author-btn .hint { font-size: 10px; color: var(--petal-3); margin-top: 1px; opacity: 0; transition: opacity 0.2s; }
-    .post-author-btn:hover .hint { opacity: 1; }
-
-    .post-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--petal-2); object-fit: cover; pointer-events: none; }
+    .post-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--petal-2); object-fit: cover; }
     .post-meta { display: flex; flex-direction: column; }
     .post-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; color: var(--bark); }
     .post-time { font-size: 11px; color: var(--text-soft); letter-spacing: 0.05em; }
     .post-text { font-size: 15px; line-height: 1.65; color: var(--text); }
-    .post-footer { margin-top: 14px; display: flex; align-items: center; justify-content: space-between; }
+    .post-footer { margin-top: 14px; display: flex; align-items: center; }
     .btn-like { background: none; border: 1px solid var(--petal-2); border-radius: 50px; padding: 5px 14px; font-size: 13px; color: var(--text-soft); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 5px; }
     .btn-like:hover { background: var(--petal-1); border-color: var(--petal-3); color: var(--petal-4); }
-    .btn-dm-inline { background: none; border: 1px solid var(--petal-2); border-radius: 50px; padding: 5px 14px; font-size: 12px; color: var(--text-soft); cursor: pointer; transition: all 0.2s; font-family: 'Zen Kaku Gothic New', sans-serif; }
-    .btn-dm-inline:hover { background: var(--petal-1); border-color: var(--petal-3); color: var(--bark); }
 
-    /* ── Empty / Footer ── */
     .empty-state { text-align: center; padding: 40px 20px; color: var(--text-soft); font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; }
     footer { text-align: center; margin-top: 60px; font-size: 12px; color: var(--petal-2); letter-spacing: 0.15em; }
-
-    /* ════════════════════════════════════════
-       DM SIDEBAR
-    ════════════════════════════════════════ */
-    .dm-overlay { position: fixed; inset: 0; background: rgba(93,58,58,0.25); backdrop-filter: blur(3px); z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
-    .dm-overlay.open { opacity: 1; pointer-events: all; }
-
-    .dm-sidebar { position: fixed; top: 0; right: 0; width: min(420px, 100vw); height: 100vh; background: var(--white); border-left: 1px solid var(--petal-2); box-shadow: -8px 0 40px rgba(180,80,100,0.18); z-index: 101; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); }
-    .dm-sidebar.open { transform: translateX(0); }
-
-    .dm-header { padding: 20px 22px 16px; border-bottom: 1px solid var(--petal-1); display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, var(--white), var(--petal-1)); flex-shrink: 0; }
-    .dm-header-avatar { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--petal-3); object-fit: cover; }
-    .dm-header-info { flex: 1; min-width: 0; }
-    .dm-header-name { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--bark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .dm-header-hint { font-size: 11px; color: var(--text-soft); margin-top: 1px; }
-    .dm-close { background: none; border: none; cursor: pointer; color: var(--text-soft); font-size: 22px; line-height: 1; padding: 4px 8px; border-radius: 8px; transition: all 0.2s; flex-shrink: 0; }
-    .dm-close:hover { background: var(--petal-1); color: var(--bark); }
-
-    .dm-login-hint { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 32px; text-align: center; color: var(--text-soft); font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; }
-
-    .dm-messages { flex: 1; overflow-y: auto; padding: 18px 18px 8px; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
-    .dm-messages::-webkit-scrollbar { width: 4px; }
-    .dm-messages::-webkit-scrollbar-thumb { background: var(--petal-2); border-radius: 4px; }
-
-    .dm-bubble-wrap { display: flex; flex-direction: column; max-width: 78%; }
-    .dm-bubble-wrap.mine   { align-self: flex-end;   align-items: flex-end; }
-    .dm-bubble-wrap.theirs { align-self: flex-start; align-items: flex-start; }
-    .dm-bubble { padding: 10px 15px; border-radius: 18px; font-size: 14px; line-height: 1.55; word-break: break-word; }
-    .dm-bubble-wrap.mine .dm-bubble   { background: linear-gradient(135deg, var(--petal-3), var(--petal-4)); color: white; border-bottom-right-radius: 4px; }
-    .dm-bubble-wrap.theirs .dm-bubble { background: var(--petal-1); color: var(--text); border-bottom-left-radius: 4px; border: 1px solid var(--petal-2); }
-    .dm-bubble-time { font-size: 10px; color: var(--text-soft); margin-top: 3px; padding: 0 4px; }
-
-    .dm-day-sep { text-align: center; font-size: 11px; color: var(--text-soft); font-family: 'Cormorant Garamond', serif; font-style: italic; letter-spacing: 0.1em; margin: 6px 0; }
-
-    .dm-empty { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: var(--text-soft); font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1rem; text-align: center; padding: 24px; }
-
-    .dm-input-area { padding: 14px 16px; border-top: 1px solid var(--petal-1); display: flex; gap: 10px; align-items: flex-end; background: var(--white); flex-shrink: 0; }
-    .dm-input-area textarea { flex: 1; min-height: 40px; max-height: 120px; padding: 10px 14px; border-radius: 20px; resize: none; font-size: 14px; line-height: 1.4; margin-bottom: 0; }
-    .dm-send { width: 42px; height: 42px; border-radius: 50%; border: none; flex-shrink: 0; background: linear-gradient(135deg, var(--petal-3), var(--petal-4)); color: white; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 3px 10px rgba(233,30,140,0.3); }
-    .dm-send:hover  { transform: scale(1.08); box-shadow: 0 5px 14px rgba(233,30,140,0.4); }
-    .dm-send:active { transform: scale(0.96); }
   </style>
 </head>
 <body>
@@ -200,29 +142,6 @@
   <circle cx="60" cy="200" r="7" fill="#f48fb1"/><circle cx="74" cy="193" r="5" fill="#fce4ec"/>
 </svg>
 
-<!-- DM Sidebar -->
-<div class="dm-overlay" id="dmOverlay"></div>
-<div class="dm-sidebar" id="dmSidebar">
-  <div class="dm-header" id="dmHeader">
-    <img class="dm-header-avatar" id="dmHeaderAvatar" src="" alt="">
-    <div class="dm-header-info">
-      <div class="dm-header-name" id="dmHeaderName">…</div>
-      <div class="dm-header-hint">личные сообщения 🌸</div>
-    </div>
-    <button class="dm-close" id="dmClose" title="Закрыть">✕</button>
-  </div>
-  <div class="dm-login-hint" id="dmLoginHint" style="display:none;">
-    🌸<br>Войдите через Google,<br>чтобы отправлять личные сообщения
-  </div>
-  <div class="dm-messages" id="dmMessages"></div>
-  <div class="dm-input-area" id="dmInputArea">
-    <textarea id="dmText" placeholder="Напишите сообщение…" rows="1"
-      oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
-    <button class="dm-send" id="dmSendBtn" title="Отправить">➤</button>
-  </div>
-</div>
-
-<!-- Main page -->
 <div class="page">
   <header>
     <div class="logo-kanji">桜 · Sakura Notes</div>
@@ -265,7 +184,10 @@
   <footer>桜 · весна всегда возвращается · 桜</footer>
 </div>
 
-<script type="module">
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
 // ── Petals ──
 const pc = document.getElementById('petalsContainer');
 for (let i = 0; i < 22; i++) {
@@ -277,61 +199,45 @@ for (let i = 0; i < 22; i++) {
   pc.appendChild(p);
 }
 
-// ════════════════════════════════════════════════════
-//  FIREBASE — вставьте свою конфигурацию ниже
-// ════════════════════════════════════════════════════
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import {
-  getFirestore, collection, addDoc, query, orderBy,
-  onSnapshot, serverTimestamp, updateDoc, doc, increment
-} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-import {
-  getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+const SUPABASE_URL  = 'https://qlnucikuabffuwvuyirh.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsbnVjaWt1YWJmZnV3dnV5aXJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwODcxNjIsImV4cCI6MjA5MTY2MzE2Mn0.8iwddcCYbzlKpcmi_DfQ1Z-fxUQUuMLw4Rovk69FxsE';
 
-  const firebaseConfig = {
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
 
-    apiKey: "AIzaSyBn3E0b-hAlhly68hVemfta8DMmzX6zAtw",
-
-    authDomain: "sakura-notes.firebaseapp.com",
-
-    projectId: "sakura-notes",
-
-    storageBucket: "sakura-notes.firebasestorage.app",
-
-    messagingSenderId: "267000760878",
-
-    appId: "1:267000760878:web:49643bd1c35a92c0ab2dbf",
-
-    measurementId: "G-LRZ9NEML81"
-
-  };
-
-
-const app      = initializeApp(firebaseConfig);
-const db       = getFirestore(app);
-const auth     = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-// ── Auth ──────────────────────────────────────────────
+// ── Элементы ──
 const loginBtn    = document.getElementById('loginBtn');
 const logoutBtn   = document.getElementById('logoutBtn');
 const userInfo    = document.getElementById('userInfo');
 const loginPrompt = document.getElementById('loginPrompt');
 const messageForm = document.getElementById('messageForm');
 
-loginBtn.onclick  = () => signInWithPopup(auth, provider);
-logoutBtn.onclick = () => signOut(auth);
+// ── Вход через Google ──
+loginBtn.onclick = async () => {
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.href
+    }
+  });
+  if (error) console.error('Ошибка входа:', error.message);
+};
 
-onAuthStateChanged(auth, (user) => {
+// ── Выход ──
+logoutBtn.onclick = async () => {
+  await sb.auth.signOut();
+};
+
+// ── Обновление UI при смене состояния авторизации ──
+function updateUI(user) {
   if (user) {
     loginBtn.style.display    = 'none';
     loginPrompt.style.display = 'none';
     userInfo.style.display    = 'flex';
     messageForm.style.display = 'block';
-    document.getElementById('userName').innerText = user.displayName;
-    document.getElementById('userPhoto').src      = user.photoURL;
-    document.getElementById('name').value         = user.displayName;
+    document.getElementById('userName').innerText = user.user_metadata.full_name || user.email;
+    document.getElementById('userPhoto').src      = user.user_metadata.avatar_url || '';
+    document.getElementById('name').value         = user.user_metadata.full_name || '';
     document.getElementById('email').value        = user.email;
   } else {
     loginBtn.style.display    = 'flex';
@@ -339,226 +245,104 @@ onAuthStateChanged(auth, (user) => {
     userInfo.style.display    = 'none';
     messageForm.style.display = 'none';
   }
+}
+
+// ── Слушаем изменения сессии ──
+sb.auth.onAuthStateChange((_event, session) => {
+  updateUI(session?.user ?? null);
 });
 
-// ── Likes ──────────────────────────────────────────────
-window.processLike = async (id) => {
-  await updateDoc(doc(db, "requests", id), { likes: increment(1) });
-};
+// ── Проверяем сессию при загрузке ──
+sb.auth.getSession().then(({ data: { session } }) => {
+  updateUI(session?.user ?? null);
+  loadPosts();
+});
 
-// ── Publish post ───────────────────────────────────────
+// ── Публикация поста ──
 document.getElementById('mainBtn').onclick = async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return;
+
   const content = document.getElementById('content').value.trim();
-  if (!content) return alert("Напишите что-нибудь 🌸");
-  try {
-    await addDoc(collection(db, "requests"), {
-      name:      auth.currentUser.displayName,
-      email:     auth.currentUser.email,
-      photo:     auth.currentUser.photoURL,
-      uid:       auth.currentUser.uid,       // ← нужен для DM
-      text:      content,
-      likes:     0,
-      timestamp: serverTimestamp()
-    });
-    document.getElementById('content').value = "";
-  } catch (e) {
-    alert("Ошибка безопасности! Проверьте Rules в Firebase.");
+  if (!content) return alert('Напишите что-нибудь 🌸');
+
+  const user = session.user;
+  const { error } = await sb.from('posts').insert({
+    name:  user.user_metadata.full_name || user.email,
+    email: user.email,
+    photo: user.user_metadata.avatar_url || '',
+    uid:   user.id,
+    text:  content,
+    likes: 0
+  });
+
+  if (error) {
+    alert('Ошибка! Проверьте таблицу posts в Supabase.\n' + error.message);
+  } else {
+    document.getElementById('content').value = '';
+    loadPosts();
   }
 };
 
-// ── Peer registry — безопасное хранилище вместо inline JSON ──
-const peerMap = new Map(); // uid → { uid, name, photo }
-window.openDMbyUid = (uid) => {
-  const peer = peerMap.get(uid);
-  if (peer) window.openDM(peer);
+// ── Лайк ──
+window.processLike = async (id, currentLikes) => {
+  await sb.from('posts').update({ likes: currentLikes + 1 }).eq('id', id);
+  loadPosts();
 };
 
-// ── Real-time feed ────────────────────────────────────
-const q = query(collection(db, "requests"), orderBy("timestamp", "desc"));
-onSnapshot(q, (snapshot) => {
+// ── Загрузка постов ──
+async function loadPosts() {
   const feed = document.getElementById('feed');
-  feed.innerHTML = "";
-  if (snapshot.empty) {
+  const { data: { session } } = await sb.auth.getSession();
+  const currentUid = session?.user?.id;
+
+  const { data: posts, error } = await sb
+    .from('posts')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    feed.innerHTML = '<div class="empty-state">Ошибка загрузки. Проверьте таблицу posts 🌸</div>';
+    return;
+  }
+
+  if (!posts || posts.length === 0) {
     feed.innerHTML = '<div class="empty-state">Пока тихо… Будьте первым лепестком 🌸</div>';
     return;
   }
-  snapshot.forEach((d) => {
-    const data   = d.data();
-    const isSelf = auth.currentUser && auth.currentUser.uid === data.uid;
 
-    // Сохраняем peer в Map — никакого JSON в HTML-атрибутах
-    if (data.uid && !isSelf) {
-      peerMap.set(data.uid, {
-        uid:   data.uid,
-        name:  data.name  || "Неизвестный",
-        photo: data.photo || "",
-      });
-    }
+  feed.innerHTML = posts.map(post => {
+    const isSelf = currentUid && currentUid === post.uid;
+    const time   = post.created_at
+      ? new Date(post.created_at).toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' })
+      : '...';
 
-    const dmBtn = !isSelf && data.uid
-      ? `<button class="btn-dm-inline" onclick="openDMbyUid('${data.uid}')">✉ Написать</button>`
-      : '';
-
-    feed.innerHTML += `
+    return `
       <div class="post">
         <div class="post-header">
-          ${data.uid && !isSelf
-            ? `<button class="post-author-btn" onclick="openDMbyUid('${data.uid}')">
-                 <img class="post-avatar" src="${data.photo || ''}" alt="">
-                 <div class="post-meta">
-                   <div class="post-name">${data.name || 'Гость'}</div>
-                   <div class="post-time">${data.timestamp?.toDate().toLocaleTimeString('ru') || '...'}</div>
-                   <div class="hint">✉ написать в личные</div>
-                 </div>
-               </button>`
-            : `<div style="display:flex;align-items:center;gap:10px;padding:4px 8px;">
-                 <img class="post-avatar" src="${data.photo || ''}" alt="">
-                 <div class="post-meta">
-                   <div class="post-name">${data.name || 'Гость'}</div>
-                   <div class="post-time">${data.timestamp?.toDate().toLocaleTimeString('ru') || '...'}</div>
-                 </div>
-               </div>`
-          }
+          <img class="post-avatar" src="${post.photo || ''}" alt="">
+          <div class="post-meta">
+            <div class="post-name">${esc(post.name || 'Гость')}</div>
+            <div class="post-time">${time}</div>
+          </div>
         </div>
-        <p class="post-text">${data.text}</p>
+        <p class="post-text">${esc(post.text)}</p>
         <div class="post-footer">
-          <button class="btn-like" onclick="processLike('${d.id}')">🌸 ${data.likes || 0}</button>
-          ${dmBtn}
+          <button class="btn-like" onclick="processLike('${post.id}', ${post.likes || 0})">
+            🌸 ${post.likes || 0}
+          </button>
         </div>
       </div>`;
-  });
-});
-
-// ════════════════════════════════════════════════════
-//  DM SYSTEM
-// ════════════════════════════════════════════════════
-const dmOverlay   = document.getElementById('dmOverlay');
-const dmSidebar   = document.getElementById('dmSidebar');
-const dmClose     = document.getElementById('dmClose');
-const dmMessages  = document.getElementById('dmMessages');
-const dmInputArea = document.getElementById('dmInputArea');
-const dmLoginHint = document.getElementById('dmLoginHint');
-const dmSendBtn   = document.getElementById('dmSendBtn');
-const dmText      = document.getElementById('dmText');
-
-let currentPeer   = null;
-let dmUnsub       = null;
-
-// Deterministic conversation ID — same for both participants
-function convId(uidA, uidB) {
-  return [uidA, uidB].sort().join('__');
+  }).join('');
 }
-
-// openDM принимает объект напрямую (вызывается через openDMbyUid)
-window.openDM = (peer) => {
-  if (auth.currentUser && auth.currentUser.uid === peer.uid) return;
-
-  currentPeer = peer;
-  document.getElementById('dmHeaderAvatar').src     = peer.photo || '';
-  document.getElementById('dmHeaderName').innerText = peer.name;
-
-  if (!auth.currentUser) {
-    dmLoginHint.style.display  = 'flex';
-    dmInputArea.style.display  = 'none';
-    dmMessages.style.display   = 'none';
-  } else {
-    dmLoginHint.style.display  = 'none';
-    dmInputArea.style.display  = 'flex';
-    dmMessages.style.display   = 'flex';
-    startListeningDM(peer);
-  }
-
-  dmOverlay.classList.add('open');
-  dmSidebar.classList.add('open');
-};
-
-function closeDM() {
-  dmOverlay.classList.remove('open');
-  dmSidebar.classList.remove('open');
-  if (dmUnsub) { dmUnsub(); dmUnsub = null; }
-  currentPeer = null;
-  dmMessages.innerHTML = '';
-}
-dmClose.onclick   = closeDM;
-dmOverlay.onclick = closeDM;
-
-function startListeningDM(peer) {
-  if (dmUnsub) dmUnsub();
-  dmMessages.innerHTML = '';
-
-  const me  = auth.currentUser;
-  const cid = convId(me.uid, peer.uid);
-  const ref = collection(db, "dms", cid, "messages");
-  const mq  = query(ref, orderBy("timestamp", "asc"));
-
-  dmUnsub = onSnapshot(mq, (snap) => {
-    dmMessages.innerHTML = '';
-    if (snap.empty) {
-      dmMessages.innerHTML = `
-        <div class="dm-empty">
-          🌸<br>Начните разговор первым —<br>пусть слова летят, как лепестки
-        </div>`;
-      return;
-    }
-    let lastDay = '';
-    snap.forEach((d) => {
-      const msg  = d.data();
-      const mine = msg.senderUid === me.uid;
-      const ts   = msg.timestamp?.toDate();
-      const day  = ts ? ts.toLocaleDateString('ru', { day:'numeric', month:'long' }) : '';
-      const time = ts ? ts.toLocaleTimeString('ru', { hour:'2-digit', minute:'2-digit' }) : '';
-
-      if (day && day !== lastDay) {
-        lastDay = day;
-        const sep = document.createElement('div');
-        sep.className   = 'dm-day-sep';
-        sep.textContent = `— ${day} —`;
-        dmMessages.appendChild(sep);
-      }
-
-      const wrap = document.createElement('div');
-      wrap.className = `dm-bubble-wrap ${mine ? 'mine' : 'theirs'}`;
-      wrap.innerHTML  = `
-        <div class="dm-bubble">${esc(msg.text)}</div>
-        <div class="dm-bubble-time">${time}</div>`;
-      dmMessages.appendChild(wrap);
-    });
-    dmMessages.scrollTop = dmMessages.scrollHeight;
-  });
-}
-
-async function sendDM() {
-  if (!auth.currentUser || !currentPeer) return;
-  const text = dmText.value.trim();
-  if (!text) return;
-  const me  = auth.currentUser;
-  const cid = convId(me.uid, currentPeer.uid);
-  dmText.value = '';
-  dmText.style.height = 'auto';
-  try {
-    await addDoc(collection(db, "dms", cid, "messages"), {
-      text,
-      senderUid:   me.uid,
-      senderName:  me.displayName,
-      senderPhoto: me.photoURL,
-      receiverUid: currentPeer.uid,
-      timestamp:   serverTimestamp()
-    });
-  } catch (e) {
-    alert("Не удалось отправить. Проверьте Rules в Firebase.");
-  }
-}
-
-dmSendBtn.onclick = sendDM;
-dmText.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendDM(); }
-});
 
 function esc(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/\n/g,'<br>');
 }
-
-window.db = db;
 </script>
 </body>
 </html>
