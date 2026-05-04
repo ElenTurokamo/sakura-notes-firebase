@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Сакура — Облачные записки</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
   <style>
     :root {
       --red:    #e53935;
@@ -99,24 +99,22 @@
       margin-bottom: 10px;
     }
     .btn-break   { background: var(--yellow); color: #5d4000; }
-    .btn-logout  { background: #bdbdbd;        color: #424242; }
+    .btn-logout  { background: #bdbdbd; color: #424242; }
 
     /* Login state */
-    .login-state {
-      text-align: center;
-    }
+    .login-state { text-align: center; }
     .login-prompt { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
     .btn-google {
       display: inline-flex; align-items: center; gap: 10px;
-      background: var(--blue);
-      color: white; border: none; border-radius: 12px; padding: 12px 24px;
+      background: var(--blue); color: white; border: none;
+      border-radius: 12px; padding: 12px 24px;
       font-size: 14px; font-family: 'Nunito', sans-serif; font-weight: 700;
       cursor: pointer; transition: filter 0.2s;
     }
     .btn-google:hover { filter: brightness(1.1); }
     .btn-google svg { width: 18px; height: 18px; }
 
-    /* ── GROUP MONITOR CARD ── */
+    /* ── CARD ── */
     .card {
       background: var(--card);
       border-radius: var(--radius);
@@ -136,8 +134,7 @@
 
     /* ── MEMBER ROW ── */
     .member {
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       justify-content: space-between;
       padding: 8px 0;
       border-bottom: 1px solid var(--border);
@@ -145,101 +142,139 @@
     .member:last-child { border-bottom: none; }
     .member-left { display: flex; align-items: center; gap: 10px; }
     .online-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: #bdbdbd;
-      flex-shrink: 0;
-      transition: background 0.4s;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #bdbdbd; flex-shrink: 0; transition: background 0.4s;
     }
     .online-dot.online  { background: var(--green); box-shadow: 0 0 0 3px rgba(67,160,71,0.2); }
     .online-dot.break   { background: var(--yellow); }
     .online-dot.offline { background: #bdbdbd; }
     .member-name { font-size: 14px; font-weight: 700; }
-
     .member-right { display: flex; align-items: center; gap: 6px; text-align: right; }
-    .member-location { font-size: 12px; color: var(--muted); }
-    .member-time {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--blue);
-      min-width: 68px;
-      text-align: right;
-    }
-
+    .member-time { font-size: 12px; font-weight: 700; color: var(--blue); min-width: 68px; text-align: right; }
     .status-badge {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
-      white-space: nowrap;
+      font-size: 11px; font-weight: 700; padding: 2px 8px;
+      border-radius: 20px; white-space: nowrap;
     }
     .badge-online  { background: #e8f5e9; color: var(--green); }
     .badge-break   { background: #fff9c4; color: #f57f17; }
     .badge-offline { background: #f5f5f5; color: var(--muted); }
 
-    /* ── CHAT CARD ── */
+    /* ── TABS ── */
+    .tabs {
+      display: flex; gap: 6px; margin-bottom: 16px;
+      border-bottom: 2px solid var(--border); padding-bottom: 0;
+    }
+    .tab-btn {
+      background: none; border: none; padding: 8px 14px 10px;
+      font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700;
+      color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent;
+      margin-bottom: -2px; transition: all 0.2s; border-radius: 4px 4px 0 0;
+    }
+    .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── LEADERBOARD ── */
+    .leaderboard-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+    }
+    .leaderboard-row:last-child { border-bottom: none; }
+    .rank-num {
+      font-size: 16px; font-weight: 900; width: 28px; text-align: center;
+      color: var(--muted); flex-shrink: 0;
+    }
+    .rank-1 { color: #fbc02d; }
+    .rank-2 { color: #90a4ae; }
+    .rank-3 { color: #a1887f; }
+    .rank-medal { font-size: 18px; }
+    .lb-info { flex: 1; min-width: 0; }
+    .lb-name { font-size: 14px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .lb-sessions { font-size: 11px; color: var(--muted); }
+    .lb-time {
+      font-size: 13px; font-weight: 800; color: var(--blue);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .lb-badges { display: flex; gap: 3px; flex-wrap: wrap; margin-top: 3px; }
+    .mini-badge { font-size: 14px; }
+
+    /* ── ACHIEVEMENTS ── */
+    .achievements-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .achievement {
+      border: 1px solid var(--border); border-radius: 14px;
+      padding: 12px; text-align: center; transition: all 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .achievement.unlocked {
+      border-color: #fbc02d; background: linear-gradient(135deg, #fffde7, #fff9c4);
+    }
+    .achievement.locked { opacity: 0.45; filter: grayscale(0.5); }
+    .ach-icon { font-size: 28px; margin-bottom: 6px; display: block; }
+    .ach-name { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+    .ach-desc { font-size: 10px; color: var(--muted); line-height: 1.4; }
+    .ach-rarity {
+      font-size: 9px; font-weight: 800; padding: 2px 6px;
+      border-radius: 20px; margin-top: 5px; display: inline-block;
+    }
+    .rarity-common    { background: #e8f5e9; color: var(--green); }
+    .rarity-rare      { background: #e3f2fd; color: var(--blue); }
+    .rarity-epic      { background: #f3e5f5; color: #8e24aa; }
+    .rarity-legendary { background: #fff3e0; color: #e65100; }
+    .unlocked-stamp {
+      position: absolute; top: 6px; right: 6px;
+      font-size: 10px; background: #fbc02d; color: white;
+      border-radius: 10px; padding: 1px 6px; font-weight: 800;
+    }
+
+    /* ── MY ACHIEVEMENTS IN PROFILE ── */
+    .my-badges {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;
+    }
+    .my-badge-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: linear-gradient(135deg, #fffde7, #fff9c4);
+      border: 1px solid #fbc02d; border-radius: 20px;
+      padding: 4px 10px; font-size: 12px; font-weight: 700;
+    }
+
+    /* ── CHAT ── */
     .chat-messages {
-      background: #f9f9f9;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
-      min-height: 110px;
-      max-height: 220px;
-      overflow-y: auto;
-      margin-bottom: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      background: #f9f9f9; border: 1px solid var(--border);
+      border-radius: 12px; padding: 14px 16px;
+      min-height: 110px; max-height: 220px; overflow-y: auto;
+      margin-bottom: 12px; display: flex; flex-direction: column; gap: 6px;
     }
     .chat-msg .msg-author { font-weight: 800; font-size: 13px; }
     .chat-msg .msg-text   { font-size: 13px; color: var(--text); }
     .chat-msg .msg-time   { font-size: 11px; color: var(--muted); }
-
-    .chat-input-row {
-      display: flex; gap: 8px;
-    }
+    .chat-input-row { display: flex; gap: 8px; }
     .chat-input {
-      flex: 1;
-      padding: 11px 16px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: #f5f5f5;
-      font-size: 14px;
-      font-family: 'Nunito', sans-serif;
-      outline: none;
+      flex: 1; padding: 11px 16px; border: 1px solid var(--border);
+      border-radius: 12px; background: #f5f5f5;
+      font-size: 14px; font-family: 'Nunito', sans-serif; outline: none;
       transition: border-color 0.2s;
     }
     .chat-input:focus { border-color: var(--blue); background: white; }
     .btn-send {
-      background: var(--green);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      width: 46px; height: 46px;
-      font-size: 20px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: filter 0.2s;
-      flex-shrink: 0;
+      background: var(--green); color: white; border: none;
+      border-radius: 12px; width: 46px; height: 46px; font-size: 20px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: filter 0.2s; flex-shrink: 0;
     }
     .btn-send:hover { filter: brightness(1.1); }
 
-    /* ── POSTS FEED ── */
+    /* ── POSTS ── */
     .feed-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--muted);
-      text-align: center;
-      margin-bottom: 14px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 13px; font-weight: 700; color: var(--muted);
+      text-align: center; margin-bottom: 14px;
+      letter-spacing: 0.05em; text-transform: uppercase;
     }
     #feed { display: flex; flex-direction: column; gap: 14px; }
     .post {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 18px 20px;
-      box-shadow: var(--shadow);
+      background: var(--card); border-radius: var(--radius);
+      padding: 18px 20px; box-shadow: var(--shadow);
       animation: fadeUp 0.3s ease;
     }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -252,35 +287,47 @@
     .btn-like {
       background: none; border: 1px solid var(--border);
       border-radius: 20px; padding: 5px 14px;
-      font-size: 13px; color: var(--muted);
-      cursor: pointer; transition: all 0.2s;
-      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 13px; color: var(--muted); cursor: pointer;
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 5px;
       font-family: 'Nunito', sans-serif; font-weight: 600;
     }
     .btn-like:hover { background: #e8f5e9; border-color: var(--green); color: var(--green); }
 
-    /* ── WRITE POST FORM ── */
+    /* ── WRITE POST ── */
     .message-form { display: none; animation: fadeUp 0.4s ease; }
     .message-form textarea {
-      width: 100%; padding: 12px 16px;
-      border: 1px solid var(--border); border-radius: 12px;
-      background: #f5f5f5;
+      width: 100%; padding: 12px 16px; border: 1px solid var(--border);
+      border-radius: 12px; background: #f5f5f5;
       font-size: 14px; font-family: 'Nunito', sans-serif;
       resize: vertical; min-height: 80px; outline: none;
-      transition: border-color 0.2s;
-      color: var(--text);
+      transition: border-color 0.2s; color: var(--text);
     }
     .message-form textarea:focus { border-color: var(--blue); background: white; }
     .btn-post {
       margin-top: 10px; width: 100%; padding: 13px;
-      background: var(--blue); color: white;
-      border: none; border-radius: 12px;
-      font-size: 14px; font-family: 'Nunito', sans-serif; font-weight: 700;
+      background: var(--blue); color: white; border: none;
+      border-radius: 12px; font-size: 14px;
+      font-family: 'Nunito', sans-serif; font-weight: 700;
       cursor: pointer; transition: filter 0.2s;
     }
     .btn-post:hover { filter: brightness(1.1); }
 
     .empty-state { text-align: center; padding: 30px; color: var(--muted); font-style: italic; }
+
+    /* ── TOAST ── */
+    .toast-container {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      z-index: 9999; display: flex; flex-direction: column; gap: 8px; align-items: center;
+    }
+    .toast {
+      background: #212121; color: white; padding: 12px 20px;
+      border-radius: 14px; font-size: 14px; font-weight: 700;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25); display: flex; align-items: center; gap: 8px;
+      animation: toastIn 0.3s ease, toastOut 0.3s ease 3.7s forwards;
+      max-width: 320px; text-align: center;
+    }
+    @keyframes toastIn  { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes toastOut { from { opacity: 1; } to { opacity: 0; } }
   </style>
 </head>
 <body>
@@ -288,34 +335,22 @@
 
   <!-- ── AUTH CARD ── -->
   <div class="auth-card" id="authCard">
-
-    <!-- Logged out -->
     <div class="login-state" id="loginState">
       <p class="login-prompt">Войдите, чтобы начать учёбу</p>
       <button class="btn-google" id="loginBtn">
-        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
-          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="white"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Войти через Google
       </button>
     </div>
 
-    <!-- Logged in -->
     <div id="sessionPanel" style="display:none;">
       <div class="user-name-big" id="userNameBig">Пользователь</div>
-
-      <!-- Study Timer -->
-      <div class="timer-row">
+      <div class="my-badges" id="myBadges"></div>
+      <div class="timer-row" style="margin-top:14px;">
         <span class="timer-icon">⏱️</span>
         <span class="timer-value" id="studyTimer">0 сек.</span>
       </div>
-
-      <button class="btn btn-end-session" id="endSessionBtn">
-        ⊖ Завершить сессию
-      </button>
+      <button class="btn btn-end-session" id="endSessionBtn">⊖ Завершить сессию</button>
       <div class="btn-row">
         <button class="btn btn-break" id="breakBtn">☕ Перерыв</button>
         <button class="btn btn-logout" id="logoutBtn">Выход</button>
@@ -323,11 +358,33 @@
     </div>
   </div>
 
-  <!-- ── GROUP MONITOR ── -->
+  <!-- ── GROUP MONITOR + LEADERBOARD + ACHIEVEMENTS ── -->
   <div class="card">
-    <div class="card-title">👥 Монитор группы</div>
-    <div id="groupMonitor">
-      <div class="empty-state" style="padding:10px;">Загрузка...</div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('monitor', this)">👥 Группа</button>
+      <button class="tab-btn" onclick="switchTab('leaderboard', this)">🏆 Рейтинг</button>
+      <button class="tab-btn" onclick="switchTab('achievements', this)">🎖️ Достижения</button>
+    </div>
+
+    <!-- Tab: Monitor -->
+    <div class="tab-content active" id="tab-monitor">
+      <div id="groupMonitor">
+        <div class="empty-state" style="padding:10px;">Загрузка...</div>
+      </div>
+    </div>
+
+    <!-- Tab: Leaderboard -->
+    <div class="tab-content" id="tab-leaderboard">
+      <div id="leaderboardList">
+        <div class="empty-state" style="padding:10px;">Загрузка...</div>
+      </div>
+    </div>
+
+    <!-- Tab: Achievements -->
+    <div class="tab-content" id="tab-achievements">
+      <div class="achievements-grid" id="achievementsGrid">
+        <div class="empty-state" style="grid-column:1/-1;padding:10px;">Загрузка...</div>
+      </div>
     </div>
   </div>
 
@@ -356,32 +413,13 @@
 
 </div>
 
-<!-- Supabase SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
 
-<!-- Firebase SDK (presence / realtime) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getDatabase, ref, set, onDisconnect, onValue, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
-
-// ── FIREBASE CONFIG (оставляем как было — пользователь должен подставить свой) ──
-const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-  projectId: "YOUR_PROJECT",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-let fbApp, db;
-try {
-  fbApp = initializeApp(firebaseConfig);
-  db = getDatabase(fbApp);
-} catch(e) {
-  console.warn('Firebase не настроен, присутствие работает через Supabase');
-}
+import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
 // ── SUPABASE ──
 const SUPABASE_URL  = 'https://qlnucikuabffuwvuyirh.supabase.co';
@@ -389,13 +427,35 @@ const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
 
+// ── ALL ACHIEVEMENTS DEFINITION ──
+const ALL_ACHIEVEMENTS = [
+  { id: 'first_step',    icon: '🌱', name: 'Первый шаг',    desc: 'Провёл первую учебную сессию',         rarity: 'common',    check: (s) => s.total_sessions >= 1 },
+  { id: 'early_bird',    icon: '🌅', name: 'Ранняя пташка', desc: 'Начал учёбу до 8:00 утра',             rarity: 'rare',      check: (s) => s.early_bird },
+  { id: 'marathoner',    icon: '🏃', name: 'Марафонец',     desc: 'Проучился более 2 часов за раз',       rarity: 'rare',      check: (s) => s.max_session_ms >= 7200000 },
+  { id: 'activist',      icon: '💬', name: 'Активист',      desc: 'Написал 20 сообщений в чате',          rarity: 'common',    check: (s) => s.total_messages >= 20 },
+  { id: 'comeback',      icon: '🔄', name: 'Возвращение',   desc: 'Вернулся к учёбе после перерыва',      rarity: 'common',    check: (s) => s.total_sessions >= 2 },
+  { id: 'workaholic',    icon: '💼', name: 'Трудоголик',    desc: 'Накопил 3 часа учёбы суммарно',        rarity: 'epic',      check: (s) => s.total_study_ms >= 10800000 },
+  { id: 'legend_10h',    icon: '⚡', name: 'Легенда',        desc: 'Накопил 10 часов учёбы суммарно',      rarity: 'legendary', check: (s) => s.total_study_ms >= 36000000 },
+  { id: 'podium',        icon: '🏆', name: 'Пьедестал',     desc: 'Попал в топ-3 рейтинга',              rarity: 'legendary', check: (s) => s.top3 },
+  { id: 'soul',          icon: '🎉', name: 'Душа компании',  desc: 'Написал 50 сообщений в чате',          rarity: 'epic',      check: (s) => s.total_messages >= 50 },
+  { id: 'week_streak',   icon: '🔥', name: 'Неделя подряд', desc: 'Учился 7 дней подряд',                 rarity: 'epic',      check: (s) => s.streak_days >= 7 },
+  { id: 'night_owl',     icon: '🦉', name: 'Сова',          desc: 'Учился после полуночи',                rarity: 'rare',      check: (s) => s.night_owl },
+  { id: 'writer',        icon: '✍️', name: 'Писатель',       desc: 'Опубликовал 10 записей',              rarity: 'rare',      check: (s) => s.total_posts >= 10 },
+  { id: 'liked',         icon: '🌸', name: 'Популярный',    desc: 'Получил 20 лайков на записях',         rarity: 'epic',      check: (s) => s.total_likes_received >= 20 },
+  { id: 'ten_sessions',  icon: '🎓', name: 'Студент',        desc: 'Провёл 10 учебных сессий',            rarity: 'rare',      check: (s) => s.total_sessions >= 10 },
+];
+
+const RARITY_LABELS = { common: 'Обычное', rare: 'Редкое', epic: 'Эпическое', legendary: 'Легендарное' };
+
 // ── STATE ──
 let currentUser   = null;
-let sessionStart  = null;   // Date когда началась текущая учёба
+let sessionStart  = null;
 let timerInterval = null;
 let onBreak       = false;
 let breakStart    = null;
 let totalBreakMs  = 0;
+let myStats       = {};
+let myAchievements = new Set();
 
 // ── ELEMENTS ──
 const loginBtn      = document.getElementById('loginBtn');
@@ -410,26 +470,132 @@ const messageForm   = document.getElementById('messageForm');
 const chatInput     = document.getElementById('chatInput');
 const chatSendBtn   = document.getElementById('chatSendBtn');
 
-// ── FORMAT TIME ──
+// ── HELPERS ──
 function fmtTime(ms) {
-  const totalSec = Math.floor(ms / 1000);
-  const h = Math.floor(totalSec / 3600);
-  const m = Math.floor((totalSec % 3600) / 60);
-  const s = totalSec % 60;
-  if (h > 0) return `${h}ч ${m}м ${s}с`;
-  if (m > 0) return `${m}м ${s}с`;
-  return `${s} сек.`;
+  const s = Math.floor(ms / 1000);
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+  if (h > 0) return `${h}ч ${m}м ${sec}с`;
+  if (m > 0) return `${m}м ${sec}с`;
+  return `${sec} сек.`;
 }
-
 function fmtTimeShort(ms) {
-  const totalSec = Math.floor(ms / 1000);
-  const h = String(Math.floor(totalSec / 3600)).padStart(2,'0');
-  const m = String(Math.floor((totalSec % 3600) / 60)).padStart(2,'0');
-  const s = String(totalSec % 60).padStart(2,'0');
-  return `${h}ч${m}м${s}с`;
+  const s = Math.floor(ms / 1000);
+  const h = String(Math.floor(s / 3600)).padStart(2,'0');
+  const m = String(Math.floor((s % 3600) / 60)).padStart(2,'0');
+  const sec = String(s % 60).padStart(2,'0');
+  return `${h}ч${m}м${sec}с`;
+}
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
 }
 
-// ── TIMER TICK ──
+// ── TABS ──
+window.switchTab = function(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'leaderboard') loadLeaderboard();
+  if (name === 'achievements') renderAchievements();
+};
+
+// ── TOAST ──
+function showToast(emoji, text) {
+  const div = document.createElement('div');
+  div.className = 'toast';
+  div.innerHTML = `<span>${emoji}</span><span>${text}</span>`;
+  document.getElementById('toastContainer').appendChild(div);
+  setTimeout(() => div.remove(), 4100);
+}
+
+// ── STATS ──
+async function loadMyStats() {
+  if (!currentUser) return;
+  const { data } = await sb.from('user_stats').select('*').eq('uid', currentUser.id).single();
+  if (data) {
+    myStats = data;
+    await checkAndGrantAchievements();
+    renderMyBadges();
+  }
+}
+
+async function updateStat(field, value) {
+  if (!currentUser) return;
+  const update = { uid: currentUser.id, [field]: value, updated_at: new Date().toISOString() };
+  await sb.from('user_stats').upsert(update, { onConflict: 'uid' });
+  await loadMyStats();
+}
+
+async function incrementStat(field, by = 1) {
+  if (!currentUser) return;
+  const cur = myStats[field] || 0;
+  await updateStat(field, cur + by);
+}
+
+// ── ACHIEVEMENTS ──
+async function loadMyAchievements() {
+  if (!currentUser) return;
+  const { data } = await sb.from('user_achievements').select('achievement_id').eq('uid', currentUser.id);
+  if (data) myAchievements = new Set(data.map(r => r.achievement_id));
+}
+
+async function grantAchievement(achId) {
+  if (myAchievements.has(achId)) return;
+  myAchievements.add(achId);
+  await sb.from('user_achievements').insert({ uid: currentUser.id, achievement_id: achId });
+  const ach = ALL_ACHIEVEMENTS.find(a => a.id === achId);
+  if (ach) showToast('🎖️', `Новое достижение: ${ach.icon} ${ach.name}!`);
+}
+
+async function checkAndGrantAchievements() {
+  // Determine top3 from leaderboard
+  const { data: lb } = await sb.from('user_stats').select('uid').order('total_study_ms', { ascending: false }).limit(3);
+  const isTop3 = lb ? lb.some(r => r.uid === currentUser.id) : false;
+  const statsWithExtras = { ...myStats, top3: isTop3 };
+
+  for (const ach of ALL_ACHIEVEMENTS) {
+    if (!myAchievements.has(ach.id) && ach.check(statsWithExtras)) {
+      await grantAchievement(ach.id);
+    }
+  }
+}
+
+function renderAchievements() {
+  const grid = document.getElementById('achievementsGrid');
+  grid.innerHTML = ALL_ACHIEVEMENTS.map(ach => {
+    const unlocked = myAchievements.has(ach.id);
+    return `
+      <div class="achievement ${unlocked ? 'unlocked' : 'locked'}">
+        ${unlocked ? '<span class="unlocked-stamp">✓</span>' : ''}
+        <span class="ach-icon">${ach.icon}</span>
+        <div class="ach-name">${ach.name}</div>
+        <div class="ach-desc">${ach.desc}</div>
+        <span class="ach-rarity rarity-${ach.rarity}">${RARITY_LABELS[ach.rarity]}</span>
+      </div>`;
+  }).join('');
+}
+
+function renderMyBadges() {
+  const container = document.getElementById('myBadges');
+  if (myAchievements.size === 0) { container.innerHTML = ''; return; }
+  const earned = ALL_ACHIEVEMENTS.filter(a => myAchievements.has(a.id));
+  container.innerHTML = earned.map(a =>
+    `<span class="my-badge-pill">${a.icon} ${a.name}</span>`
+  ).join('');
+}
+
+// ── PRESENCE ──
+async function upsertPresence(status) {
+  if (!currentUser) return;
+  const elapsed = sessionStart ? Date.now() - sessionStart - totalBreakMs : 0;
+  await sb.from('presence').upsert({
+    uid: currentUser.id,
+    name: currentUser.user_metadata?.full_name || currentUser.email,
+    status, study_ms: elapsed, updated_at: new Date().toISOString()
+  }, { onConflict: 'uid' });
+}
+
+// ── TIMER ──
 function startTimerTick() {
   if (timerInterval) clearInterval(timerInterval);
   timerInterval = setInterval(() => {
@@ -439,50 +605,71 @@ function startTimerTick() {
   }, 1000);
 }
 
-// ── PRESENCE via Supabase presence table (fallback if no Firebase) ──
-async function upsertPresence(status) {
-  if (!currentUser) return;
-  const elapsed = sessionStart ? Date.now() - sessionStart - totalBreakMs : 0;
-  await sb.from('presence').upsert({
-    uid: currentUser.id,
-    name: currentUser.user_metadata?.full_name || currentUser.email,
-    status,                      // 'online' | 'break' | 'offline'
-    study_ms: elapsed,
-    updated_at: new Date().toISOString()
-  }, { onConflict: 'uid' });
-}
-
-// ── LOAD GROUP MONITOR ──
+// ── GROUP MONITOR ──
 async function loadGroupMonitor() {
   const monitor = document.getElementById('groupMonitor');
-  const { data, error } = await sb
-    .from('presence')
-    .select('*')
-    .order('updated_at', { ascending: false });
-
-  if (error || !data || data.length === 0) {
+  const { data } = await sb.from('presence').select('*').order('updated_at', { ascending: false });
+  if (!data || data.length === 0) {
     monitor.innerHTML = '<div class="empty-state" style="padding:8px;font-size:13px;">Нет участников</div>';
     return;
   }
-
   monitor.innerHTML = data.map(m => {
-    const isOnline  = m.status === 'online';
-    const isBreak   = m.status === 'break';
-    const dotClass  = isOnline ? 'online' : isBreak ? 'break' : 'offline';
-    const badgeClass = isOnline ? 'badge-online' : isBreak ? 'badge-break' : 'badge-offline';
-    const badgeText  = isOnline ? 'В учёбе' : isBreak ? 'Перерыв' : 'Дома';
-    const timeStr    = m.study_ms ? fmtTimeShort(m.study_ms) : '0ч0м0с';
-
+    const dotC  = m.status === 'online' ? 'online' : m.status === 'break' ? 'break' : 'offline';
+    const badgeC = m.status === 'online' ? 'badge-online' : m.status === 'break' ? 'badge-break' : 'badge-offline';
+    const label  = m.status === 'online' ? 'В учёбе' : m.status === 'break' ? 'Перерыв' : 'Дома';
     return `
       <div class="member">
         <div class="member-left">
-          <div class="online-dot ${dotClass}"></div>
+          <div class="online-dot ${dotC}"></div>
           <span class="member-name">${esc(m.name || 'Гость')}</span>
         </div>
         <div class="member-right">
-          <span class="status-badge ${badgeClass}">${badgeText}</span>
-          <span class="member-time">⏱ ${timeStr}</span>
+          <span class="status-badge ${badgeC}">${label}</span>
+          <span class="member-time">⏱ ${fmtTimeShort(m.study_ms || 0)}</span>
         </div>
+      </div>`;
+  }).join('');
+}
+
+// ── LEADERBOARD ──
+async function loadLeaderboard() {
+  const list = document.getElementById('leaderboardList');
+  list.innerHTML = '<div class="empty-state" style="padding:8px;">Загрузка...</div>';
+
+  const { data } = await sb.from('user_stats').select('*').order('total_study_ms', { ascending: false }).limit(20);
+  if (!data || data.length === 0) {
+    list.innerHTML = '<div class="empty-state" style="font-size:13px;">Пока никого</div>';
+    return;
+  }
+
+  // Get badges for each user
+  const uids = data.map(r => r.uid);
+  const { data: achData } = await sb.from('user_achievements').select('uid, achievement_id').in('uid', uids);
+  const achByUid = {};
+  (achData || []).forEach(r => {
+    if (!achByUid[r.uid]) achByUid[r.uid] = [];
+    achByUid[r.uid].push(r.achievement_id);
+  });
+
+  const medals = ['🥇','🥈','🥉'];
+  list.innerHTML = data.map((u, i) => {
+    const rankClass = i < 3 ? `rank-${i+1}` : '';
+    const rankDisplay = i < 3 ? `<span class="rank-medal">${medals[i]}</span>` : `<span class="rank-num ${rankClass}">#${i+1}</span>`;
+    const userAchs = (achByUid[u.uid] || []).slice(0,4);
+    const badgeIcons = userAchs.map(id => {
+      const a = ALL_ACHIEVEMENTS.find(x => x.id === id);
+      return a ? `<span class="mini-badge" title="${a.name}">${a.icon}</span>` : '';
+    }).join('');
+    const sessions = u.total_sessions || 0;
+    return `
+      <div class="leaderboard-row">
+        ${rankDisplay}
+        <div class="lb-info">
+          <div class="lb-name">${esc(u.name || 'Гость')}</div>
+          <div class="lb-badges">${badgeIcons}</div>
+          <div class="lb-sessions">${sessions} сесс.</div>
+        </div>
+        <div class="lb-time">⏱ ${fmtTimeShort(u.total_study_ms || 0)}</div>
       </div>`;
   }).join('');
 }
@@ -490,27 +677,14 @@ async function loadGroupMonitor() {
 // ── CHAT ──
 async function loadChat() {
   const box = document.getElementById('chatMessages');
-  const { data, error } = await sb
-    .from('chat_messages')
-    .select('*')
-    .order('created_at', { ascending: true })
-    .limit(50);
-
-  if (error || !data || data.length === 0) {
+  const { data } = await sb.from('chat_messages').select('*').order('created_at', { ascending: true }).limit(50);
+  if (!data || data.length === 0) {
     box.innerHTML = '<div class="empty-state" style="padding:6px;font-size:13px;">Нет сообщений</div>';
     return;
   }
-
   box.innerHTML = data.map(msg => {
-    const t = msg.created_at
-      ? new Date(msg.created_at).toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' })
-      : '';
-    return `
-      <div class="chat-msg">
-        <span class="msg-author">${esc(msg.name || 'Гость')}:</span>
-        <span class="msg-text"> ${esc(msg.text)}</span>
-        <span class="msg-time"> ${t}</span>
-      </div>`;
+    const t = msg.created_at ? new Date(msg.created_at).toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' }) : '';
+    return `<div class="chat-msg"><span class="msg-author">${esc(msg.name || 'Гость')}:</span><span class="msg-text"> ${esc(msg.text)}</span><span class="msg-time"> ${t}</span></div>`;
   }).join('');
   box.scrollTop = box.scrollHeight;
 }
@@ -521,43 +695,59 @@ async function sendChatMessage() {
   if (!text) return;
   chatInput.value = '';
   await sb.from('chat_messages').insert({
-    uid:  currentUser.id,
+    uid: currentUser.id,
     name: currentUser.user_metadata?.full_name || currentUser.email,
     text
   });
+  // Increment message count
+  await incrementStat('total_messages');
+  // Night owl check
+  const hour = new Date().getHours();
+  if (hour >= 0 && hour < 4) await updateStat('night_owl', true);
   await loadChat();
 }
 
 chatSendBtn.onclick = sendChatMessage;
 chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendChatMessage(); });
 
-// ── REALTIME SUBSCRIPTIONS ──
+// ── REALTIME ──
 function subscribeRealtime() {
   sb.channel('presence_changes')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'presence' }, loadGroupMonitor)
     .subscribe();
-
   sb.channel('chat_changes')
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, loadChat)
     .subscribe();
 }
 
 // ── AUTH UI ──
-function updateUI(user) {
+async function updateUI(user) {
   currentUser = user;
   if (user) {
     loginState.style.display   = 'none';
     sessionPanel.style.display = 'block';
     messageForm.style.display  = 'block';
     userNameBig.textContent    = user.user_metadata?.full_name || user.email;
-    document.getElementById('content') && (document.getElementById('content').placeholder = 'О чём думаете сегодня?');
 
-    // Start session
     if (!sessionStart) {
-      sessionStart  = Date.now();
-      totalBreakMs  = 0;
-      onBreak       = false;
+      sessionStart = Date.now();
+      totalBreakMs = 0;
+      onBreak = false;
     }
+
+    // Ensure user_stats row exists
+    await sb.from('user_stats').upsert({
+      uid: currentUser.id,
+      name: currentUser.user_metadata?.full_name || currentUser.email,
+      updated_at: new Date().toISOString()
+    }, { onConflict: 'uid' });
+
+    // Check early bird
+    const hour = new Date().getHours();
+    if (hour < 8) await updateStat('early_bird', true);
+
+    await loadMyAchievements();
+    await loadMyStats();
     startTimerTick();
     upsertPresence('online');
     loadGroupMonitor();
@@ -583,6 +773,24 @@ logoutBtn.onclick = async () => {
 
 endSessionBtn.onclick = async () => {
   if (!confirm('Завершить учёбу?')) return;
+  const sessionMs = sessionStart ? Date.now() - sessionStart - totalBreakMs : 0;
+
+  // Update cumulative stats
+  const prevTotal    = myStats.total_study_ms || 0;
+  const prevMaxSess  = myStats.max_session_ms || 0;
+  const prevSessions = myStats.total_sessions || 0;
+  await sb.from('user_stats').upsert({
+    uid: currentUser.id,
+    name: currentUser.user_metadata?.full_name || currentUser.email,
+    total_study_ms: prevTotal + sessionMs,
+    max_session_ms: Math.max(prevMaxSess, sessionMs),
+    total_sessions: prevSessions + 1,
+    updated_at: new Date().toISOString()
+  }, { onConflict: 'uid' });
+
+  await loadMyAchievements();
+  await loadMyStats();
+
   if (timerInterval) clearInterval(timerInterval);
   studyTimer.textContent = '0 сек.';
   sessionStart = null;
@@ -592,16 +800,14 @@ endSessionBtn.onclick = async () => {
 
 breakBtn.onclick = async () => {
   if (!onBreak) {
-    onBreak    = true;
-    breakStart = Date.now();
+    onBreak = true; breakStart = Date.now();
     breakBtn.textContent = '▶ Продолжить';
     breakBtn.style.background = '#66bb6a';
     breakBtn.style.color = 'white';
     await upsertPresence('break');
   } else {
     totalBreakMs += Date.now() - breakStart;
-    onBreak    = false;
-    breakStart = null;
+    onBreak = false; breakStart = null;
     breakBtn.textContent = '☕ Перерыв';
     breakBtn.style.background = '';
     breakBtn.style.color = '';
@@ -612,38 +818,34 @@ breakBtn.onclick = async () => {
 // ── POSTS ──
 async function loadPosts() {
   const feed = document.getElementById('feed');
-  const { data: { session } } = await sb.auth.getSession();
-  const currentUid = session?.user?.id;
   const { data: posts, error } = await sb.from('posts').select('*').order('created_at', { ascending: false });
-
   if (error) { feed.innerHTML = '<div class="empty-state">Ошибка загрузки 🌸</div>'; return; }
   if (!posts || posts.length === 0) { feed.innerHTML = '<div class="empty-state">Пока тихо… Будьте первым 🌸</div>'; return; }
-
   feed.innerHTML = posts.map(post => {
-    const time = post.created_at
-      ? new Date(post.created_at).toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' })
-      : '...';
+    const time = post.created_at ? new Date(post.created_at).toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' }) : '...';
     return `
       <div class="post">
         <div class="post-header">
           <img class="post-avatar" src="${post.photo || ''}" alt="">
-          <div>
-            <div class="post-name">${esc(post.name || 'Гость')}</div>
-            <div class="post-time">${time}</div>
-          </div>
+          <div><div class="post-name">${esc(post.name || 'Гость')}</div><div class="post-time">${time}</div></div>
         </div>
         <p class="post-text">${esc(post.text)}</p>
         <div class="post-footer">
-          <button class="btn-like" onclick="processLike('${post.id}', ${post.likes || 0})">
-            🌸 ${post.likes || 0}
-          </button>
+          <button class="btn-like" onclick="processLike('${post.id}', ${post.likes || 0}, '${post.uid}')">🌸 ${post.likes || 0}</button>
         </div>
       </div>`;
   }).join('');
 }
 
-window.processLike = async (id, currentLikes) => {
+window.processLike = async (id, currentLikes, postOwnerUid) => {
   await sb.from('posts').update({ likes: currentLikes + 1 }).eq('id', id);
+  // Give the post owner a "like received" credit
+  if (postOwnerUid) {
+    const { data: ownerStats } = await sb.from('user_stats').select('total_likes_received').eq('uid', postOwnerUid).single();
+    if (ownerStats) {
+      await sb.from('user_stats').update({ total_likes_received: (ownerStats.total_likes_received || 0) + 1 }).eq('uid', postOwnerUid);
+    }
+  }
   loadPosts();
 };
 
@@ -657,12 +859,11 @@ document.getElementById('mainBtn').onclick = async () => {
     name: user.user_metadata?.full_name || user.email,
     email: user.email,
     photo: user.user_metadata?.avatar_url || '',
-    uid: user.id,
-    text: content,
-    likes: 0
+    uid: user.id, text: content, likes: 0
   });
   if (error) { alert('Ошибка! ' + error.message); } else {
     document.getElementById('content').value = '';
+    await incrementStat('total_posts');
     loadPosts();
   }
 };
@@ -677,12 +878,7 @@ sb.auth.getSession().then(({ data: { session } }) => {
   subscribeRealtime();
 });
 
-// Периодически обновляем присутствие
-setInterval(() => { upsertPresence(onBreak ? 'break' : 'online'); }, 30000);
-
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-}
+setInterval(() => { if (currentUser) upsertPresence(onBreak ? 'break' : 'online'); }, 30000);
 </script>
 </body>
 </html>
